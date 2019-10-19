@@ -1,3 +1,6 @@
+CreateTables.sql
+
+
 alter session set "_ORACLE_SCRIPT"=true;
 
 create table tipos_documentos_usuario(
