@@ -186,4 +186,71 @@ CONSTRAINT  fk_dianac_dto foreign key (id_dianac) references dia(id),
 CONSTRAINT  fk_paisnac_dto foreign key (id_paisnac) references paises(id)
 );
 
+create table bonos(
+id number (10,0) not null,
+fecha_inicio date,
+fecha_fin date,
+estado varchar(250),
+CONSTRAINT bonos_pk PRIMARY KEY (id)
+);
+
+create table partidos(
+id number (10,0) not null,
+local varchar(250),
+visitante varchar(250),
+fecha date,
+estado varchar(250),
+goles_l number(2,0),
+goles_v number(2,0),
+ganador_lt varchar(250),
+ganador_2t varchar(250),
+CONSTRAINT partidos_pk PRIMARY KEY (id)
+);
+
+create table cuotas(
+id         number (10,0) not null,
+id_partido number (10,0) not null,
+apuesta    varchar (250) ,
+si_gana    number (10,2) ,
+si_perde   number (10,2) ,
+si_empata  number (10,2) ,
+CONSTRAINT cuotas_pk PRIMARY KEY (id),
+CONSTRAINT fk_partido foreign key (id_partido) references partidos(id)
+);
+
+create table apuestas(
+id number (10,0) not null,
+id_usua number (10,0) not null,
+fecha date,
+valor_apostado number(10,2) ,
+estado varchar(250),
+CONSTRAINT apuestas_pk PRIMARY KEY (id),
+CONSTRAINT fk_usua_apu foreign key (id_usua) references usuarios(id)
+);
+
+create table detalle_apuesta(
+id number (10,0) not null,
+id_partido number (10,0) not null,
+id_apuesta number (10,0) not null,
+opcion varchar(250),
+cuota number (10,2),
+CONSTRAINT detalle_apuesta_pk PRIMARY KEY (id),
+CONSTRAINT fk_partido_det foreign key (id_partido) references partidos(id),
+CONSTRAINT fk_apuesta foreign key (id_apuesta) references apuestas(id)
+);
+
+create table auditoria(
+id number (10,0) not null,
+date_time varchar(250),
+tabla varchar(250),
+id_record number(10,0) not null,
+action varchar(250),
+usuario varchar(250),
+IP varchar(250),
+CONSTRAINT auditoria_pk PRIMARY KEY (id)
+);
+
+
+
+
 
