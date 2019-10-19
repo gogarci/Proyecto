@@ -92,8 +92,7 @@ lastname varchar(250),
 id_docu number (10,0)not null,
 password varchar(250) not null,
 estado varchar(250),
-CONSTRAINT usuarios_pk PRIMARY KEY (id),
-CONSTRAINT fk_docu foreign key (id_docu) references docu_usuarios(id)
+CONSTRAINT usuarios_pk PRIMARY KEY (id)
 );
 
 create table docu_usuarios (
@@ -114,6 +113,9 @@ CONSTRAINT fk_mes foreign key (id_mes) references mes(id),
 CONSTRAINT fk_dia foreign key (id_dia) references dia(id),
 CONSTRAINT fk_usua foreign key (id_usua) references usuarios(id)
 );
+
+ALTER TABLE usuarios
+ADD CONSTRAINT fk_docu foreign key (id_docu) references docu_usuarios(id);
 
 create table limites_depositos_usuarios(
 id number (10,0)primary key not null,
