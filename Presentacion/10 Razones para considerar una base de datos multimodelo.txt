@@ -1,0 +1,15 @@
+10 razones para considerar una base de datos multimodelo
+
+Una base de datos multimodelo admite diferentes tipos de datos para diferentes casos de uso y los consolida en una sola plataforma, tiene flexibilidad en el lenguaje de consulta y el modelo de datos, pero al mismo tiempo se beneficia de una tecnología de motor de almacenamiento, llevando a menores costos totales de propiedad y una mayor flexibilidad a medida que cambian las necesidades de infraestructura.
+
+A medida que crece el uso de una aplicación, también aumenta la necesidad de rendimiento de la base de datos; la única opción del usuario es escalar el sistema "verticalmente", utilizando una máquina única y más grande que tenga un mayor rendimiento o capacidad.
+
+Los entornos fragmentados causados por la ejecución de diferentes bases de datos aumentan la complejidad de las operaciones y el desarrollo. A menudo es incómodo e ineficiente calzar muchos datos en un solo modelo de datos, un enfoque multimodelo implica mapear múltiples modelos de datos en un único motor de almacenamiento subyacente que puede admitir diferentes casos de uso y aplicaciones. Este enfoque proporciona un modelado de datos flexible sin la complejidad de operar múltiples almacenes de datos.
+
+El uso de más sistemas de bases de datos distintos aumenta los costos según el hardware, el software y las necesidades operativas asociadas con cada sistema. Aunque cada herramienta puede haber sido adoptada para resolver un problema comercial específico, en conjunto, casi todas las bases de datos NoSQL no ofrecen garantías transaccionales debido a sus diseños arquitectónicos.
+
+Un verdadero sistema multimodelo requiere transacciones para garantizar que los datos se almacenen de manera consistente en la base de datos, por lo tanto, una aplicación que es compatible con una base de datos multimodelo obtiene los beneficios de escalabilidad, tolerancia a fallas y, en un sistema bien diseñado, un alto rendimiento integrado en el producto.
+
+Los desarrolladores pueden centrarse en crear mejores aplicaciones, debido a estos beneficios, los sistemas de modelos múltiples son hacia donde se dirige el mercado de bases de datos: transacciones compatibles con ACID, API de modelos múltiples y motores de almacenamiento compartidos y potentes que pueden cumplir mejor los requisitos de las aplicaciones exigentes.
+
+
