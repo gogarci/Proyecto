@@ -1,0 +1,11 @@
+IdEstadoApuesta,NombreEstado,Estado
+1,Abierta,Disponible
+2,Ganada,Disponible
+3,Perdida,Disponible
+4,Vendida,Disponible
+5,Cancelada,Disponible
+6,Reembolsada,Disponible
+7,Invalida,Disponible
+8,Rechazada,Disponible
+9,Pedido,Disponible
+10,Parte-aprobada,Disponible
