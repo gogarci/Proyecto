@@ -1,0 +1,28 @@
+
+¿Quién necesita procedimientos almacenados, de todos modos?
+
+
+Creo que una arquitectura de procedimiento almacenado tiene serias desventajas y pocos beneficios prácticos. Los procedimientos almacenados deben considerarse lenguaje ensamblador de la base de datos; para usar solo en las situaciones más críticas de rendimiento en una compañia.
+
+
+
+Hay muchas maneras de diseñar una capa de acceso a datos sólida y de alto rendimiento sin recurrir a procedimientos almacenados; obtendrás muchos beneficios si te quedas con SQL parametrizado y un único entorno de desarrollo coherente.
+
+Los procedimientos almacenados ocultan la lógica empresarial. No tengo idea de lo que está haciendo un proceso, o qué tipo de cursor (DataSet) o valores me devolverá. No se puede ver el código fuente del proceso
+
+El SQL en línea puede no ser bonito, pero al menos puedo verlo en contexto, junto con la otra lógica de negocios.
+
+¿por qué usar procedimientos almacenados?
+
+Los procedimientos almacenados generalmente dan como resultado un rendimiento mejorado porque la base de datos puede optimizar el plan de acceso a datos utilizado por el procedimiento y almacenarlo en caché para su posterior reutilización.
+
+Los procedimientos almacenados se pueden asegurar individualmente dentro de la base de datos. Un cliente puede obtener permisos para ejecutar un procedimiento almacenado sin tener ningún permiso en las tablas subyacentes.
+
+Los procedimientos almacenados resultan en un mantenimiento más fácil porque generalmente es más fácil modificar un procedimiento almacenado que cambiar una instrucción SQL codificada dentro de un componente implementado.
+
+Los procedimientos almacenados agregan un nivel adicional de abstracción del esquema de base de datos subyacente. El cliente del procedimiento almacenado está aislado de los detalles de implementación del procedimiento almacenado y del esquema subyacente.
+
+Los procedimientos almacenados pueden reducir el tráfico de red, ya que las instrucciones SQL se pueden ejecutar en lotes en lugar de enviar múltiples solicitudes desde el cliente.
+
+
+las unicas que necesitan procedimientos almacenados son las empresas que a diario requieren realizar consultas continuas ya que su trabajo lo implique.
