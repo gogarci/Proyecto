@@ -1,0 +1,19 @@
+
+Quizás normalizar no es normal
+
+No tiene que ser todo o nada ; puede desnormalizar parcialmente donde tiene sentido hacerlo y mantenerse completamente normalizado en otras áreas donde no lo hace.
+
+Los ingenieros de software mantendrán celosamente la normalización total de la base de datos solo por principio
+
+Fue una píldora difícil de tragar porque era el diseñador original de la base de datos. Resultó que fue más difícil para todos los demás!
+
+
+
+Pat Helland señala que las personas normalizan porque sus profesores les dijeron que lo hicieran . Soy un poco más pragmático; Creo que debería normalizarse cuando los datos le indiquen que:
+
+La normalización tiene sentido para su equipo.
+La normalización proporciona un mejor rendimiento. (Mide automáticamente todas las consultas que fluyen a través de su software, ¿verdad?)
+La normalización evita una cantidad onerosa de duplicación o evita el riesgo de problemas de sincronización a los que su dominio o usuarios problemáticos son particularmente sensibles.
+La normalización le permite escribir consultas y códigos más simples.
+
+La normalización no es polvo mágico de hadas que rocía sobre su base de datos para curar todos los males; A menudo crea tantos problemas como resuelve. No temas el espectro de la desnormalización. Los datos duplicados y los problemas de sincronización a menudo son exagerados y relativamente fáciles de solucionar con trabajos cron. Los discos y la memoria son baratos y se vuelven más baratos cada nanosegundo. Mida el rendimiento en su sistema y decida por sí mismo qué funciona, libre de predisposiciones y sesgos.
