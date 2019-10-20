@@ -1,256 +1,255 @@
-alter session set "_ORACLE_SCRIPT"=true;
-
-create table tipos_documentos_usuarios(
-id number (10,0) not null,
-nom_tipo_doc varchar(250),
-estado varchar(250),
-CONSTRAINT tipos_documentos_usuarios_pk PRIMARY KEY (id)
-);
-
-create table paises(
-id number (10,0) not null,
-nom_pais varchar(250),
-estado varchar(250),
-CONSTRAINT paises_pk PRIMARY KEY (id)
-);
-
-create table departamento(
-id number (10,0) not null,
-nom_depto varchar(250),
-id_pais number (10,0)not null,
-estado varchar(250),
-CONSTRAINT departamento_pk PRIMARY KEY (id),
-CONSTRAINT fk_pais foreign key (id_pais) references paises(id)
-);
-
-create table municipios(
-id number (10,0) not null,
-nom_muni varchar(250),
-id_dpto number (10,0)not null,
-estado varchar(250),
-CONSTRAINT municipios_pk PRIMARY KEY (id),
-CONSTRAINT fk_dpto foreign key (id_dpto) references departamento(id)
-);
-
-create table anios(
-id number (10,0) not null,
-anio varchar(250),
-estado varchar(250),
-CONSTRAINT anios_pk PRIMARY KEY (id)
-);
-
-create table mes(
-id number (10,0) not null,
-mes varchar(250),
-estado varchar(250),
-CONSTRAINT mes_pk PRIMARY KEY (id)
-);
-
-create table dia(
-id number (10,0) not null,
-dia varchar(250),
-estado varchar(250),
-CONSTRAINT dia_pk PRIMARY KEY (id)
-);
-
-create table Nacionalidad(
-id number (10,0) not null,
-nacionalidad varchar(250),
-estado varchar(250),
-CONSTRAINT Nacionalidad_pk PRIMARY KEY (id)
-);
-
-create table Zona_horarias(
-id number (10,0) not null,
-Zona_Horaria varchar(250),
-estado varchar(250),
-CONSTRAINT Zona_horarias_pk PRIMARY KEY (id)
-);
-
-create table codigo_postal(
-id number (10,0) not null,
-codigo_postal varchar(250),
-estado varchar(250),
-CONSTRAINT codigo_postal_pk PRIMARY KEY (id)
-);
-
-create table prefijos(
-id number (10,0) not null,
-prefijo varchar(250),
-id_pais number (10,0)not null,
-estado varchar(250),
-CONSTRAINT prefijos_pk PRIMARY KEY (id),
-CONSTRAINT fk_pais_pre foreign key (id_pais) references paises(id)
-);
-
-create table usuarios (
-ID number (10,0) not null,
-firstname varchar(250),
-secondname varchar(250),
-middlename varchar(250),
-lastname varchar(250),
-id_docu number (10,0)not null,
-password varchar(250) not null,
-estado varchar(250),
-CONSTRAINT usuarios_pk PRIMARY KEY (id)
-);
-
-create table docu_usuarios (
-id number (10,0) not null,
-id_tipo number (10,0)not null,
-id_pais number (10,0)not null,
-id_anio number (10,0)not null,
-id_mes number (10,0)not null,
-id_dia number (10,0)not null,
-Id_usua number (10,0)not null,
-password varchar(250) not null,
-estado varchar(250),
-CONSTRAINT docu_usuarios_pk PRIMARY KEY (id),
-CONSTRAINT fk_tipo_doc foreign key (id_tipo) references tipos_documentos_usuarios(id),
-CONSTRAINT fk_pais_doc foreign key (id_pais) references paises(id),
-CONSTRAINT fk_anio_doc foreign key (id_anio) references anios(id),
-CONSTRAINT fk_mes_doc  foreign key (id_mes)  references mes(id),
-CONSTRAINT fk_dia_doc  foreign key (id_dia)  references dia(id),
-CONSTRAINT fk_usua_doc foreign key (id_usua) references usuarios(id)
-);
-
-ALTER TABLE usuarios
-ADD CONSTRAINT fk_docu_usr foreign key (id_docu) references docu_usuarios(id);
-
-create table limites_depositos_usuarios(
-id number (10,0) not null,
-id_usuar number (10,0)not null,
-limite_diario varchar(250),
-limite_semana varchar(250),
-limite_mensua varchar(250),
-estado varchar(250),
-CONSTRAINT limites_depositos_usuarios_pk PRIMARY KEY (id),
-CONSTRAINT fk_usua_limt foreign key (id_usuar) references usuarios(id)
-);
-
-create table preferencias_usuarios(
-id number (10,0) not null,
-id_usuar number (10,0)not null,
-acepta_term_cond varchar(1),
-acepta_info_comer varchar(1),
-acepta_barrio varchar(1),
-cod_bono varchar(250),
-acepta_bole_info varchar(1),
-acepta_apuesta_dep varchar(1),
-acepta_envio_sms varchar(1),
-acepta_noti varchar(1),
-acepta_aviso_apsues varchar(1),
-estado varchar(250),
-CONSTRAINT preferencias_usuarios_pk PRIMARY KEY (id),
-CONSTRAINT fk_usua_prefe foreign key (id_usuar) references usuarios(id)
-);
-
-create table datos_contacto_usuario(
-id number (10,0) not null,
-direccion1 varchar(250),
-direccion2 varchar(250),
-id_paisrec number (10,0)not null,
-id_dpto number (10,0)not null,
-id_muni number (10,0)not null,
-id_codpos number (10,0)not null,
-id_prefijo number (10,0)not null,
-numcel varchar(250),
-email varchar(250),
-idioma_email varchar(250),
-id_preferencia number (10,0)not null,
-estado varchar(250),
-CONSTRAINT datos_contacto_usuario_pk PRIMARY KEY (id),
-CONSTRAINT  fk_paisrec        foreign key (id_paisrec)     references paises(id),
-CONSTRAINT  fk_dptorec        foreign key (id_dpto)        references departamento(id),
-CONSTRAINT  fk_munirec        foreign key (id_muni)        references municipios(id),
-CONSTRAINT  fk_codposrec      foreign key (id_codpos)      references codigo_postal(id),
-CONSTRAINT  fk_prefijorec     foreign key (id_prefijo)     references prefijos(id),
-CONSTRAINT  fk_preferenciarec foreign key (id_preferencia) references preferencias_usuarios(id)
-);
-
-create table datos_usuarios (
-id number (10,0) not null,
-id_usua number (10,0)not null,
-id_naci number (10,0)not null,
-id_anionac number (10,0)not null,
-id_mesnac number (10,0)not null,
-id_dianac number (10,0)not null,
-id_paisnac number (10,0)not null,
-estado varchar(250),
-CONSTRAINT datos_usuarios_pk PRIMARY KEY (id),
-CONSTRAINT  fk_usua_dto foreign key (id_usua) references usuarios(id),
-CONSTRAINT  fk_naci_dto foreign key (id_naci) references nacionalidad(id),
-CONSTRAINT  fk_anionac_dto foreign key (id_anionac) references anios(id),
-CONSTRAINT  fk_mesnac_dto foreign key (id_mesnac) references mes(id),
-CONSTRAINT  fk_dianac_dto foreign key (id_dianac) references dia(id),
-CONSTRAINT  fk_paisnac_dto foreign key (id_paisnac) references paises(id)
-);
-
-create table bonos(
-id number (10,0) not null,
-fecha_inicio date,
-fecha_fin date,
-estado varchar(250),
-CONSTRAINT bonos_pk PRIMARY KEY (id)
-);
-
-create table partidos(
-id number (10,0) not null,
-local varchar(250),
-visitante varchar(250),
-fecha date,
-estado varchar(250),
-goles_l number(2,0),
-goles_v number(2,0),
-ganador_lt varchar(250),
-ganador_2t varchar(250),
-CONSTRAINT partidos_pk PRIMARY KEY (id)
-);
-
-create table cuotas(
-id         number (10,0) not null,
-id_partido number (10,0) not null,
-apuesta    varchar (250) ,
-si_gana    number (10,2) ,
-si_perde   number (10,2) ,
-si_empata  number (10,2) ,
-CONSTRAINT cuotas_pk PRIMARY KEY (id),
-CONSTRAINT fk_partido foreign key (id_partido) references partidos(id)
-);
-
-create table apuestas(
-id number (10,0) not null,
-id_usua number (10,0) not null,
-fecha date,
-valor_apostado number(10,2) ,
-estado varchar(250),
-CONSTRAINT apuestas_pk PRIMARY KEY (id),
-CONSTRAINT fk_usua_apu foreign key (id_usua) references usuarios(id)
-);
-
-create table detalle_apuesta(
-id number (10,0) not null,
-id_partido number (10,0) not null,
-id_apuesta number (10,0) not null,
-opcion varchar(250),
-cuota number (10,2),
-CONSTRAINT detalle_apuesta_pk PRIMARY KEY (id),
-CONSTRAINT fk_partido_det foreign key (id_partido) references partidos(id),
-CONSTRAINT fk_apuesta foreign key (id_apuesta) references apuestas(id)
-);
-
-create table auditoria(
-id number (10,0) not null,
-date_time varchar(250),
-tabla varchar(250),
-id_record number(10,0) not null,
-action varchar(250),
-usuario varchar(250),
-IP varchar(250),
-CONSTRAINT auditoria_pk PRIMARY KEY (id)
+CREATE TABLE TIPOS_DOCUMENTOS_USUARIOS(
+ID             NUMBER(10,0) PRIMARY KEY,
+TIPO_DOCUMENTO VARCHAR(250)NOT NULL,
+ESTADO         VARCHAR(250) NOT NULL
 );
 
 
+CREATE TABLE PAISES(
+ID          NUMBER (10,0) PRIMARY KEY,
+NOMBRE_PAIS VARCHAR(250) NOT NULL,
+ESTADO      VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE DEPARTAMENTOS(
+ID                   NUMBER(10,0) PRIMARY KEY,
+NOMBRE_DEPARTAMENTO  VARCHAR(250) NOT NULL,
+ID_PAIS              NUMBER(10,0) NOT NULL,
+ESTADO               VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE MUNICIPIOS(
+ID               NUMBER(10,0) PRIMARY KEY,
+NOMBRE_MUNICIPIO VARCHAR(250) NOT NULL,
+ID_DEPARTAMENTO  NUMBER(10,0) NOT NULL,
+ESTADO           VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE ANOS(
+ID     NUMBER(10,0) PRIMARY KEY,
+ANO    VARCHAR(250) NOT NULL,
+ESTADO VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE MESES(
+ID     NUMBER(10,0) PRIMARY KEY,
+MES    VARCHAR(250) NOT NULL,
+ESTADO VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE DIAS(
+ID     NUMBER(10,0) PRIMARY KEY,
+DIA    VARCHAR(250) NOT NULL,
+ESTADO VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE NACIONALIDADES(
+ID           NUMBER(10,0) PRIMARY KEY,
+NACIONALIDAD VARCHAR(250) NOT NULL,
+ESTADO       VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE ZONAS_HORARIAS(
+ID NUMBER(10,0) PRIMARY KEY,
+ZONA_HORARIO VARCHAR(250) NOT NULL,
+ESTADO VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE CODIGOS_POSTALES(
+ID            NUMBER(10,0) PRIMARY KEY,
+CODIGO_POSTAL VARCHAR(250) NOT NULL,
+ESTADO        VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE PREFIJOS(
+ID      NUMBER(10,0) PRIMARY KEY,
+PREFIJO VARCHAR(250),
+ID_PAIS NUMBER(10,0) NOT NULL,
+ESTADO  VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE USUARIOS(
+ID         NUMBER(10,0) PRIMARY KEY,
+NOMBRE1    VARCHAR(250) NOT NULL,
+NOMBRE2    VARCHAR(250),
+APELLIDO1  VARCHAR(250) NOT NULL,
+APELLIDO2  VARCHAR(250) NOT NULL,
+TITULO     VARCHAR(250) NOT NULL,
+CONTRASENA VARCHAR(250) NOT NULL,
+ESTADO     VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE DOCUMENTOS_USUARIOS(
+ID         NUMBER(10,0) PRIMARY KEY,
+ID_TIPO    NUMBER(10,0) NOT NULL,
+ID_PAIS    NUMBER(10,0) NOT NULL,
+ID_ANO     NUMBER(10,0) NOT NULL,
+ID_MES     NUMBER(10,0) NOT NULL,
+ID_DIA     NUMBER(10,0) NOT NULL,
+ID_USUARIO NUMBER(10,0) NOT NULL,
+ESTADO     VARCHAR(250) NOT NULL
+);
 
 
+CREATE TABLE LIMITES_DEPOSITOS_USUARIOS(
+ID NUMBER(10,0) PRIMARY KEY,
+ID_USUARIO                 NUMBER(10,0) NOT NULL,
+LIMITE_DIARIO_ANTERIOR     VARCHAR(250),
+LIMITE_DIARIO_ACTUAL       VARCHAR(250),
+FECHA_ACTUALIZACION_DIA    TIMESTAMP,
+LIMITE_SEMANA_ANTERIOR     VARCHAR(250),
+LIMITE_SEMANA_ACTUAL       VARCHAR(250),
+FECHA_ACTUALIZACION_SEMANA TIMESTAMP,
+LIMITE_MENSUAL_ANTERIOR    VARCHAR(250),
+LIMITE_MENSUAL_ACTUAL      VARCHAR(250),
+FECHA_ACTUALIZACION_MES    TIMESTAMP,
+ESTADO                     VARCHAR(250) NOT NULL
+);
 
+CREATE TABLE PREFERENCIAS_USUARIOS(
+ID NUMBER(10,0) PRIMARY KEY,
+ID_USUARIO NUMBER(10,0) NOT NULL,
+ACEPTA_TERMINOS_CONDICIONES NUMBER(1,0),
+ACEPTA_INFORMACION_COMERCIAL NUMBER(1,0),
+ACEPTA_BARRIO NUMBER(1,0),
+ID_BONO NUMBER(10,0),
+ACEPTA_BOLETIN_INFORMATIVO NUMBER(1,0),
+ACEPTA_CORREO_APUESTAS NUMBER(1,0),
+ACEPTA_ENVIO_SMS NUMBER(1,0),
+ACEPTA_NOTIFICACIONES NUMBER(1,0),
+ACEPTA_AVISOS_BOLETA_APUESTA NUMBER(1,0),
+LIMITE_APUESTAS_DIARIA NUMBER(10,2),
+LIMITE_APUESTAS_SEMANAL NUMBER(10,2),
+LIMITE_APUESTAS_MENSUAL NUMBER(10,2),
+ESTADO VARCHAR(250) NOT NULL
+);
+	
+
+CREATE TABLE DATOS_CONTACTOS_USUARIOS(
+ID              NUMBER(10,0) PRIMARY KEY,
+DIRECCION1      VARCHAR(250) NOT NULL,
+DIRECCION2      VARCHAR(250),
+ID_PAIS         NUMBER(10,0) NOT NULL,
+ID_DEPARTAMENTO NUMBER(10,0) NOT NULL,
+ID_MUNICIPIO    NUMBER(10,0) NOT NULL,
+ID_PREFIJO      NUMBER(10,0) NOT NULL,
+CELULAR         VARCHAR(250) NOT NULL,
+EMAIL           VARCHAR(250) NOT NULL,
+IDIOMA_EMAIL    VARCHAR(250) NOT NULL,
+ID_PREFERENCIA  NUMBER(10,0) NOT NULL,
+ESTADO          VARCHAR(250) NOT NULL
+);
+
+
+CREATE TABLE DATOS_USUARIOS(
+ID               NUMBER(10,0) PRIMARY KEY,
+ID_USUARIO       NUMBER(10,0) NOT NULL,
+ID_NACIONALIDAD  NUMBER(10,0) NOT NULL,
+ID_ANO           NUMBER(10,0) NOT NULL,
+ID_MES           NUMBER(10,0) NOT NULL,
+ID_DIA           NUMBER(10,0) NOT NULL,
+ID_PAIS          NUMBER(10,0) NOT NULL,
+ID_ZONA_HORARIA  NUMBER(10,0) NOT NULL,
+ESTADO           VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE APUESTAS(
+ID             NUMBER(10,0) PRIMARY KEY,
+ID_USUARIO     NUMBER(10,0) NOT NULL,
+NOMBRE_USUARIO VARCHAR(250) NOT NULL,
+FECHA_APUESTA  TIMESTAMP NOT NULL,
+VALOR_APOSTADO NUMBER(10,2) NOT NULL,
+ESTADO         VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE ESTADOS_APUESTA(
+ID     NUMBER(10,0) PRIMARY KEY,
+ESTADO VARCHAR(250) NOT NULL,
+ESTADO VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE EQUIPOS_APUESTA(
+ID     NUMBER(10,0) PRIMARY KEY,
+EQUIPO VARCHAR(250) NOT NULL,
+ESTADO VARCHAR(250)NOT NULL
+);
+
+CREATE TABLE TIPOS_APUESTAS(
+ID      NUMBER(10,0) PRIMARY KEY,
+TIPO    VARCHAR(250) NOT NULL,
+OPCION1 NUMBER(3,2),
+OPCION2 NUMBER(3,2),
+OPCION3 NUMBER(3.2),
+ESTADO  VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE DETALLES_APUESTAS
+ID                NUMBER(10,0) PRIMARY KEY,
+ID_APUESTA        NUMBER(10,0) NOT NULL,
+ID_CUOTA          NUMBER(10,0) NOT NULL,
+ID_ESTADO_APUESTA NUMBER(10,0) NOT NULL,
+VALOR_TOTAL       NUMBER(10,2) NOT NULL,
+VALOR_PAGO_MAXIMO NUMBER(10,2) NOT NULL,
+ESTADO            VARCHAR(250) NOT NULL
+);
+	
+CREATE TABLE BONOS(
+ID           NUMBER(10,0) PRIMARY KEY,
+CODIGO       VARCHAR(250) NOT NULL,
+FECHA_INICIO TIMESTAMP NOT NULL,
+FECHA_FIN    TIMESTAMP NOT NULL,
+ESTADO       VARCHAR(250) NOT NULL
+)
+
+CREATE TABLE CUOTAS(
+ID              NUMBER(10,0) PRIMARY KEY,
+ID_PARTIDO      NUMBER(10,0) NOT NULL,
+ID_TIPO_APUESTA NUMBER(10,0) NOT NULL,
+ESTADO          VARCHAR(250) NOT NULL
+);
+	
+CREATE TABLE TIPO_MEDIOS_PAGOS(
+ID           NUMBER(10,0) PRIMARY KEY,
+NOMBRE       VARCHAR(250) NOT NULL,
+MONTO_MINIMO NUMBER(10,2) NOT NULL,
+MONTO_MAXIMO NUMBER(10,2) NOT NULL,
+ESTADO       VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE PARTIDOS(
+ID                     NUMBER(10,0) PRIMARY KEY,
+ID_EQUIPO_LOCAL        NUMBER(10,0) NOT NULL,
+ID_EQUIPO_VISITANTE    NUMBER(10,0) NOT NULL,
+FECHA_PARTIDO          TIMESTAMP NOT NULL,
+ESTADO_PARTIDO         VARCHAR(250) NOT NULL,
+GOLES_EQUIPO_LOCAL     NUMBER(2,0) NOT NULL,
+GOLES_EQUIPO_VISITANTE NUMBER(2,0) NOT NULL,
+GANADOR_1_TIEMPO       VARCHAR(1) NOT NULL,
+GANADOR_2_TIEMPO       VARCHAR(1) NOT NULL,
+ESTADO                 VARCHAR(250) NO NULL
+);
+
+CREATE TABLE LIMITES_APUESTAS_USUARIOS(
+ID NUMBER(10,0) PRIMARY KEY,
+LIMITE_DIARIO_ANTERIOR NUMBER(10,2) NOT NULL,
+LIMITE_DIARIO_ACTUAL NUMBER(10,2) NOT NULL,
+FECHA_ACTUAL_DIA TIMESTAMP NOT NULL,
+LIMITE_SEMANA_ANTERIOR NUMBER(10,2) NOT NULL,
+LIMITE_SEMANA_ACTUAL NUMBER(10,2) NOT NULL,
+FECHA_ACTUAL_SEMANA TIMESTAMP NOT NULL,
+LIMITE_MES_ANTERIOR NUMBER(10,2) NOT NULL,
+LIMITE_MES_ACTUAL NUMBER(10,2) NOT NULL,
+FECHA_ACTUAL_MENSUAL NUMBER(10,2) NOT NULL,
+LIMITE_PERDIDA_DIARIO_ANTERIOR NUMBER(10,2) NOT NULL,
+LIMITE_PERDIDA_DIARIO_ACTUAL NUMBER(10,2) NOT NULL,
+FECHA_ACTUAL_DIARIO_PERDIDA NUMBER(10,2) NOT NULL,
+LIMITE_PERDIDA_SEMANA_ANTERIOR NUMBER(10,2) NOT NULL,
+LIMITE_PERDIDA_SEMANA_ACTUAL NUMBER(10,2) NOT NULL,
+FECHA_ACTUAL_SEMANA_PERDIDA NUMBER(10,2) NOT NULL,
+LIMITE_PERDIDA_MES_ANTERIOR NUMBER(10,2) NOT NULL,
+LIMITE_PERDIDA_MES_ACTUAL NUMBER(10,2) NOT NULL,
+FECHA_ACTUAL_MES_PERDIDA NUMBER(10,2) NOT NULL,
+TIEMPO_ACTIVIDAD_SESSION NUMBER(2,0) NOT NULL,
+ID_LIMITES_APUESTAS NUMBER(10,0) NOT NULL,
+ESTADO VARCHAR(250) NOT NULL
+);
