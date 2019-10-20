@@ -1,0 +1,32 @@
+Fallas graves en la seguridad de tarjetas de crédito y credenciales en Rappi. Para este artículo, debe hablar sobre por qué Rappi estaba teniendo problemas con la información de los usuarios de tarjetas de crédito, cómo almacenar los datos de las tarjetas de crédito de manera efectiva, sobre qué es PCI DSS y cómo debe manejar la información de las tarjetas de crédito; y finalmente las lecciones aprendidas para sus proyectos futuros y lo que no debe hacer para proteger a sus usuarios.
+
+--------------------------------------------------------------------------------------------------------------------
+
+1.Debe hablar sobre por qué Rappi estaba teniendo problemas con la información de los usuarios de tarjetas de crédito
+
+
+Rappi estaba obteniendo datos personales de sus clientes en varios países, así como datos parciales de sus tarjetas de crédito e identificadores (tokens) en el sistema de almacenamiento. También encontraron errores en el código de inicio de sesiones (login). 
+
+Esto se presento debido a que rappi , al presentar el formulario de recolección de datos de las tarjetas, opta por incluírlo desde sus servidores Aunque los datos fueran enviados directamente al procesador de pagos esto incrementa la exposición de los datos de las tarjetas y les pone mayores exigencias en los cuestionarios de PCI, al menos SAQ A-EP. Rappi no usó los mecanismos recomendados por el procesador de pagos para recolectar la información de las tarjetas y de esta forma tener menores exigencias por exposición de la información.
+
+Tiempo de solución de las fallas: 61 días.
+
+---------------------------------------------------------------------------------------------------------------------
+2.Cómo almacenar los datos de las tarjetas de crédito de manera efectiva
+
+usan servicios de empresas procesadoras de pagos que se encargan de presentar el formulario de recolección de datos de tarjetas a sus clientes y realizar los cargos y reembolsos a las tarjetas de crédito. De esta forma los datos de las tarjetas de crédito nunca pasan por los servidores del comercio y una vez el cliente realiza la transacción y se aprueba, el procesador de pagos notifica al comercio. Es el procesador de pagos quien está involucrado con el tratamiento y procesamiento de datos de tarjeta de crédito. Usualmente estos operadores cuentan con las mayores certificaciones PCI nivel 1 entregadas por consultores externos. De esta forma los datos de las tarjetas de crédito se transfieren desde el computador o móvil del usuario a los servidores del procesador de pagos. Nunca pasan por el comercio.
+
+
+3.sobre qué es PCI DSS y cómo debe manejar la información de las tarjetas de crédito
+
+
+se creó la alianza PCI que integran los mayores emisores de tarjetas a nivel mundial (Visa, MasterCard,etc). Esta alianza publica un estándar, llamado PCI DSS (Payment Card Industry Data Security Standard), que deberían seguir todos los comercios.
+En Colombia la circular externa 008 de 2018 de la Superfinanciera se refiere al tema.
+La certificación PCI tiene dos formas. Una autoevaluación o contratar a un tercero consultor QSA (Qualified Security Assessor).
+
+4.finalmente las lecciones aprendidas para sus proyectos futuros y lo que no debe hacer para proteger a sus usuarios
+
+
+Verificar todas las normas de seguridad en nuestras aplicaciones o proyecto que se van a iniciar, no tratar de salirnos de los estándares que nos protegen queriendo reducir costos ya que pueden salir muy caros en el tiempo, y tener presente que se esta jugando con el nombre de una compañía o marca.
+
+
